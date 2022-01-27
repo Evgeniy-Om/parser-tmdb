@@ -38,9 +38,9 @@ export class Film {
     @Column()
     vote_count: number
 
-    // @ManyToMany(() => Genre, {nullable: true})
-    // @JoinTable({name: 'films_countries'})
-    // country_ids: Country[]
+    @ManyToMany(() => Country, {nullable: true})
+    @JoinTable({name: 'films_countries'})
+    countries: Country[]
 
     @ManyToMany(() => Genre)
     @JoinTable({name: 'films_genres'})
