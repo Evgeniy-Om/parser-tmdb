@@ -1,8 +1,8 @@
-import { CreateFilmDto } from '../dto/create-film.dto'
-import { Film } from '../entity/Film'
-import { findGenresByIds } from './findGenresByIds'
+import { CreateFilmDto } from '../../dto/createFilm.dto'
+import { Film } from '../../entity/Film'
+import { findGenresByIDs } from './findGenresByIDs'
 
-export async function generateListFilmsToAddToDb(listOfFilms: CreateFilmDto[], connection) {
+export async function generateListFilmsToAddToDb(listOfFilms: CreateFilmDto[]) {
     const films = []
     for (const film of listOfFilms) {
         const newFilm = new Film()
@@ -17,7 +17,7 @@ export async function generateListFilmsToAddToDb(listOfFilms: CreateFilmDto[], c
         newFilm.title = film.title
         newFilm.vote_average = film.vote_average
         newFilm.vote_count = film.vote_count
-        newFilm.genres = await findGenresByIds(film.genre_ids, connection)
+        newFilm.genres = await findGenresByIDs(film.genre_ids)
 
         films.push(newFilm)
     }
