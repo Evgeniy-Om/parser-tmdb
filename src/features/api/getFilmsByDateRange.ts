@@ -1,4 +1,4 @@
-import { CreateFilmDto } from '../dto/createFilm.dto'
+import { CreateFilmDto } from '../../dto/createFilm.dto'
 import { fetchFilms } from './fetchFilms'
 
 export async function getFilmsByDateRange(dateRange: [string, string]): Promise<CreateFilmDto[]> {
@@ -16,5 +16,4 @@ export async function getFilmsByDateRange(dateRange: [string, string]): Promise<
         }
     }
     return films
-
 }

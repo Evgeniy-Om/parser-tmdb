@@ -1,9 +1,16 @@
 import { Genre } from '../../entity/Genre'
 import { getRepository } from 'typeorm'
 
-export function findGenresByIDs(genre_ids = [36,37]): Promise<Genre[]> {
-    return getRepository(Genre)
+export async function findGenresByIDs(genre_ids: number[]): Promise<Genre[]> {
+    try {
+        const response = await getRepository(Genre)
         .createQueryBuilder( 'genre')
         .where('genre.id IN (:...ids)', {ids: genre_ids})
         .getMany()
+        return response
+    }
+    catch (e) {
+        console.log("Ошибка поиска жанров по ID: ", e)
+    }
+
 }
