@@ -20,13 +20,13 @@ export class Film {
     @Column()
     title: string
 
-    @Column()
+    @Column({nullable: true, default: null})
     overview: string
 
     @Column({type: 'numeric'})
     popularity: number
 
-    @Column()
+    @Column({nullable: true, default: null})
     poster_path: string
 
     @Column()
@@ -42,7 +42,7 @@ export class Film {
     @JoinTable({name: 'films_countries'})
     countries: Country[]
 
-    @ManyToMany(() => Genre)
+    @ManyToMany(() => Genre, {nullable: true})
     @JoinTable({name: 'films_genres'})
     genres: Genre[]
 }
