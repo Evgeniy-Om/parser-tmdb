@@ -4,7 +4,7 @@ import { findFilmsIDsWhereCountryIsNULL } from './features/db/findFilmsIDsWhereC
 import axios from 'axios'
 import { generatorDateRangeByOneMonth } from './features/generatorDateRangeByOneMonth'
 import { CreateFilmDto } from './dto/createFilm.dto'
-import {getFilmsByYear } from './features/api/getFilmsByYear'
+import { getFilmsByYearAndSaveToDB } from './features/api/getFilmsByYearAndSaveToDB'
 import { addRelations_FilmsCountries } from './features/db/addRelations_FilmsCountries'
 import { findCountriesByIDs } from './features/db/findCountriesByIDs'
 import { Country } from './entity/Country'
@@ -21,8 +21,9 @@ createConnection().then(async connection => {
     // console.log("numberPagesByMonth: ", numberPagesByMonth)
 
     // const response = await getFilmsByDateRange(['1920-01-01', '1920-01-31'])
-    const response = await getFilmsByYear(1980)
-    await saveListFilmsToDB(response)
+    // const response = await getFilmsByYear(2021)
+    await getFilmsByYearAndSaveToDB(2021)
+    // await saveListFilmsToDB(response)
     // console.log("Фильмы: ", films)
     // console.log(await fetchFilms(['1920-02-27', '1920-02-28'],1).then(res => res.data))
     // console.log("Всего фильмов: ", films)

@@ -1,14 +1,15 @@
 import { generatorDateRangeByOneMonth } from '../generatorDateRangeByOneMonth'
 import { getFilmsByDateRange } from './getFilmsByDateRange'
-import { CreateFilmDto } from '../../dto/createFilm.dto'
+import { saveListFilmsToDB } from '../db/saveListFilmsToDB'
 
 
-export async function getFilmsByYear(year: number): Promise<CreateFilmDto[] > {
+export async function getFilmsByYearAndSaveToDB(year: number) {
     const generator = generatorDateRangeByOneMonth(year)
-    const films = []
     for (let value of generator) {
+        console.log("DateRange: ", value)
         const res = await getFilmsByDateRange(value)
-        films.push(...res)
+        await saveListFilmsToDB(res)
     }
-    return films
 }
+
+
