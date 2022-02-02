@@ -4,22 +4,37 @@ import { findFilmsIDsWhereCountryIsNULL } from './features/db/findFilmsIDsWhereC
 import axios from 'axios'
 import { generatorDateRangeByOneMonth } from './features/generatorDateRangeByOneMonth'
 import { CreateFilmDto } from './dto/createFilm.dto'
-import { getFilmsByYear } from './features/getFilmsByYear'
+import {getFilmsByYear } from './features/api/getFilmsByYear'
 import { addRelations_FilmsCountries } from './features/db/addRelations_FilmsCountries'
 import { findCountriesByIDs } from './features/db/findCountriesByIDs'
 import { Country } from './entity/Country'
 import { Film } from './entity/Film'
 import { findGenresByIDs } from './features/db/findGenresByIDs'
+import { generateGTE } from './features/generateGTE'
+import { getFilmsByDateRange } from './features/api/getFilmsByDateRange'
+import { fetchFilms } from './features/api/fetchFilms'
+import { saveListFilmsToDB } from './features/db/saveListFilmsToDB'
 
 createConnection().then(async connection => {
 
-    // const arr = await getFilmsByYear(2015)
-    // console.log("arr: ", arr)
-    //
-    //
-    // console.log('Finish')
+    // const numberPagesByMonth = await getFilmsByYear(1920)
+    // console.log("numberPagesByMonth: ", numberPagesByMonth)
 
+    // const response = await getFilmsByDateRange(['1920-01-01', '1920-01-31'])
+    const response = await getFilmsByYear(1980)
+    await saveListFilmsToDB(response)
+    // console.log("Фильмы: ", films)
+    // console.log(await fetchFilms(['1920-02-27', '1920-02-28'],1).then(res => res.data))
+    // console.log("Всего фильмов: ", films)
+    console.log('Finish')
+
+    // generatorDateRangeByOneMonth2(2015)
+    // console.log(generateGTE(1877, 18))
     // for (let i = 1; i<= 12; i++) {
+
+    // const generator = generatorDateRangeByOneMonth(2015);
+    //
+    // console.log(generator.next().value)
     //
     // }
     // const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
@@ -34,8 +49,7 @@ createConnection().then(async connection => {
     // })
     // console.log(response.data.total_pages)
     //
-    // const films = await generateListFilmsToAddToDb(response.data.results, connection)
-    // await connection.manager.save(films)
+
 
     // Ищу все фильмы из базы данных, у которых не указана ссылка на страны принимавшие участие в их создании
     // const filmsIDs = await findFilmsIDsWhereCountryIsNULL(connection)
