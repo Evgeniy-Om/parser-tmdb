@@ -1,9 +1,9 @@
 import { CreateFilmDto } from '../../dto/createFilm.dto'
-import { fetchFilms } from './fetchFilms'
+import { fetchListFilms } from './fetchListFilms'
 
 export async function getFilmsByDateRange(dateRange: [string, string]): Promise<CreateFilmDto[]> {
 
-    let response = await fetchFilms(dateRange, 1)
+    let response = await fetchListFilms(dateRange, 1)
     let films = response.data.results
     let totalPages = response.data.total_pages
     console.log("totalPages: ", totalPages)
@@ -11,7 +11,7 @@ export async function getFilmsByDateRange(dateRange: [string, string]): Promise<
 
     if (totalPages > 1) {
         for (let page = 2; page <= totalPages; page++) {
-            response = await fetchFilms(dateRange, page)
+            response = await fetchListFilms(dateRange, page)
             films.push(...response.data.results)
         }
     }

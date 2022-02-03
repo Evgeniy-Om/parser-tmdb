@@ -9,9 +9,9 @@ type ResponseTypes = {
         total_results: number
     }
 }
-export function fetchFilms(dateRange: [string, string], page): Promise<ResponseTypes> {
+export function fetchListFilms(dateRange: [string, string], page): Promise<ResponseTypes> {
     try {
-        const response =  axios.get(process.env.BASE_URL, {
+        const response =  axios.get(process.env.DISCOVER_URL, {
             params: {
                 api_key: process.env.API_KEY,
                 language: 'ru-RU',
@@ -23,6 +23,6 @@ export function fetchFilms(dateRange: [string, string], page): Promise<ResponseT
         })
         return response
     } catch (e) {
-        console.log("fetchFilms: ", e)
+        console.log("fetchListFilms: ", e)
     }
 }
