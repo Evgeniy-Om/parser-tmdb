@@ -45,4 +45,7 @@ export class Film {
     @ManyToMany(() => Genre, {nullable: true})
     @JoinTable({name: 'films_genres'})
     genres: Genre[]
+
+    @Column({default: false})
+    is_updated: boolean
 }
