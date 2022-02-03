@@ -7,5 +7,5 @@ export class Country {
     id: string
 
     @Column()
-    name: string
+    name?: string
 }
