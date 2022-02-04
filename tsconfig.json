@@ -2,8 +2,7 @@
    "compilerOptions": {
       "strict": false,
       "lib": [
-         "es5",
-         "es6"
+         "es2020"
       ],
       "target": "es5",
       "downlevelIteration": true,

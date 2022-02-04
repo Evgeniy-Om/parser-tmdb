@@ -6,7 +6,7 @@ createConnection().then(async () => {
 
     // await addListFilmsPerOneYear(2020)
 
-    await updateListFilms(23)
+    await updateListFilms(2000)
 
     console.log('Finish')
 

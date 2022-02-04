@@ -3,20 +3,53 @@ import { updateFilmDto } from '../../dto/updateFilm.dto'
 import { fetchFilmByID } from '../api/fetchFilmByID'
 import { generateListFilmsForUpdateInDb } from '../generateListFilmsForUpdateInDb'
 import { findIsNotUpdatedFilms } from './findIsNotUpdatedFilms'
+import { performance } from 'perf_hooks'
+
+const LIMIT_REQUEST = 100 // Увеличение до 150 и более может привести к ошибке ETIMEDOUT
 
 // При получении списка фильмов в итоговом результате нет полей: страна-производитель и imdb_id. Поэтому приходится
 // делать запрос на каждый фильм по отдельности чтобы получить эту недостающую информацию
 export async function updateListFilms(limitFilms: number) {
-    const filmsIDs = await findIsNotUpdatedFilms(limitFilms)
-    console.log(filmsIDs.length)
+    // DB
+    const limitRowsFromDb = Math.min(limitFilms, LIMIT_REQUEST)
+    const listFilmsIdsFromDb = await findIsNotUpdatedFilms(limitRowsFromDb)
+    console.log(listFilmsIdsFromDb.length)
 
-    if (filmsIDs) {
-        const responses: updateFilmDto[] = []
-        for (let i = 0; i < limitFilms; i++) {
-            const film = await fetchFilmByID(filmsIDs[i])
-            responses.push(film)
+    // API
+    const limit = Math.min(listFilmsIdsFromDb.length, LIMIT_REQUEST)
+    if (limit) {
+        let promises = []
+
+        for (let i = 0; i < limit; i++) {
+            promises.push(fetchFilmByID(listFilmsIdsFromDb[i]))
         }
+
+        const responses: updateFilmDto[] = []
+        const start = performance.now()
+        const resultsAll = await Promise.allSettled(promises)
+        resultsAll.forEach((result) => {
+            if (result.status == 'fulfilled') {
+                responses.push(result.value)
+            }
+            if (result.status == 'rejected') {
+
+                if (result.reason.response.status) {
+                    console.log('Status code ', result.reason.response.status)
+                    // console.log(result.reason)
+                } else {
+                    console.log(result.reason)
+                }
+            }
+        })
+        console.log('performance, ms: ', performance.now() - start)
+
         const listFilms = generateListFilmsForUpdateInDb(responses)
-        saveInDb(listFilms)
+
+        await saveInDb(listFilms)
+
+        // Recursion
+        if (limitFilms > LIMIT_REQUEST) {
+            await updateListFilms(limitFilms - LIMIT_REQUEST)
+        }
     }
 }

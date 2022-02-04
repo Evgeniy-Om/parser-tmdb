@@ -7,7 +7,7 @@ type Country = {
 @Entity()
 export class updateFilmDto {
     id: number
-    imdb_id: string
-    production_countries: Country[]
-    name: string
+    imdb_id?: string
+    production_countries?: Country[]
+    name?: string
 }
