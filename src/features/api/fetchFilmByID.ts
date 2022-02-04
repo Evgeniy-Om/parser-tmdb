@@ -8,12 +8,16 @@ export async function fetchFilmByID (id: number): Promise<updateFilmDto> {
             params: {
                 api_key: process.env.API_KEY,
                 language: 'ru-RU'
-            }
+            },
         })
         return response.data
     } catch (e) {
-        console.log("Ошибка в fetchFilmByID: ", e)
-    }
+        if (e.response.status === 404) {
+            return {id: id}
+        } else {
+            console.log("Ошибка в fetchFilmByID: ", e)
+        }
 
+    }
 }
 

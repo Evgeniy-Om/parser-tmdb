@@ -9,9 +9,9 @@ export function generateListFilmsForUpdateInDb(listFilms: updateFilmDto[]) {
 
         updateFilm.id = film.id
         updateFilm.imdb_id = film.imdb_id
-        updateFilm.countries = film.production_countries.map(item => {
-            return {id: item.iso_3166_1}
-        })
+        updateFilm.countries = film.production_countries
+            ? film.production_countries.map(item => ({id: item.iso_3166_1}))
+            : []
         updateFilm.is_updated = true
 
         films.push(updateFilm)
