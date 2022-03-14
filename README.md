@@ -1,7 +1,18 @@
-# Awesome Project Build with TypeORM
+# Парсер API TMDB
 
-Steps to run this project:
+Cтадия разработки: ручной режим (из файла index.ts)
 
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+Функционал: 
+- парсит api TMDB
+- добавляет данные с IMDB
+
+Планируется:
+- добавление данные из Кинопоиска
+
+Стек:
+ - Typescript
+ - Typeorm
+ - Postgres
+
+
+
