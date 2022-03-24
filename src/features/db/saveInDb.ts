@@ -1,6 +1,15 @@
-import { Film } from '../../entity/Film'
-import { getManager } from 'typeorm'
+import {Film} from '../../entity/Film'
+import {getManager} from 'typeorm'
 
-export async function saveInDb(listFilms: Film[]) {
-    await getManager().save(listFilms)
+export function saveInDb(listFilms: Film[]) {
+    listFilms.forEach(async (i) => {
+        try {
+            // console.log(i)
+            await getManager().save(i)
+        } catch (e) {
+            console.log(e.message)
+            console.log(i)
+        }
+    })
+
 }

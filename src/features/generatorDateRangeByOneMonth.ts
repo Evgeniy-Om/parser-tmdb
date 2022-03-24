@@ -6,9 +6,9 @@ type DateRange = [
     to: string
 ]
 
-export function* generatorDateRangeByOneMonth(year: number): IterableIterator<DateRange> {
+export function* generatorDateRangeByOneMonth(year: number, fromMonth: number = 1): IterableIterator<DateRange> {
     let gte, lte
-    for (let month = 1; month <= 12; month++) {
+    for (let month = fromMonth; month <= 12; month++) {
         gte = generateGTE(year, month)
         lte = generateLTE(year, month)
         yield [gte, lte]
