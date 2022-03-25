@@ -1,11 +1,11 @@
 import { updateFilmDto } from '../dto/updateFilm.dto'
-import { Film } from '../entity/Film'
+import { FilmEntity } from '../entities/Film.entity'
 
 export function generateListFilmsForUpdateInDb(listFilms: updateFilmDto[]) {
 
-    const films: Film[] = []
+    const films: FilmEntity[] = []
     for (const film of listFilms) {
-        const updateFilm = new Film()
+        const updateFilm = new FilmEntity()
 
         updateFilm.id = film.id
         updateFilm.imdb_id = film.imdb_id

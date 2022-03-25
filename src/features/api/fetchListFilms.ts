@@ -11,9 +11,9 @@ type ResponseTypes = {
 }
 export function fetchListFilms(dateRange: [string, string], page): Promise<ResponseTypes> {
     try {
-        const response =  axios.get(process.env.DISCOVER_URL, {
+        const response =  axios.get(process.env.TMDB_DISCOVER_URL, {
             params: {
-                api_key: process.env.API_KEY,
+                api_key: process.env.TMDB_API_KEY,
                 language: 'ru-RU',
                 include_adult: false,
                 page,

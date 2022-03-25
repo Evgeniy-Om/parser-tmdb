@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity()
-export class Genre {
+export class CountryEntity {
 
     @PrimaryColumn()
-    id: number
+    id: string
 
     @Column()
     name?: string

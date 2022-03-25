@@ -1,15 +1,15 @@
 // import 'reflect-metadata'
 // import { createConnection } from 'typeorm'
-// import { Genre } from './entity/Genre'
+// import { GenreEntity } from './entities/GenreEntity'
 // import { films } from './initialData/films'
-// import { Film } from './entity/Film'
+// import { FilmEntity } from './entities/FilmEntity'
 // import { CreateFilmDto } from './dto/create-film.dto'
 //
 // const axios = require('axios').default
 //
 // function addFilmsToDb(listOfFilms: CreateFilmDto[], connection) {
 //     listOfFilms.forEach(film => {
-//         const newFilm = new Film()
+//         const newFilm = new FilmEntity()
 //
 //         newFilm.id = film.id
 //         newFilm.original_language = film.original_language
@@ -25,7 +25,7 @@
 //         async function addRelations(genre_ids: number[]) {
 //             newFilm.genres = []
 //             for (const genreId of genre_ids) {
-//                 const genre = await connection.manager.findOne(Genre, genreId)
+//                 const genre = await connection.manager.findOne(GenreEntity, genreId)
 //                 newFilm.genres.push(genre)
 //             }
 //         }
@@ -60,14 +60,14 @@
 //     // console.log(users)
 //
 //     // genres.forEach(item => {
-//     //     const genre = new Genre()
+//     //     const genre = new GenreEntity()
 //     //     genre.id = item.id
 //     //     genre.name = item.name
 //     //     connection.manager.save(genre)
 //     // })
 //
 //     // countries.forEach(item => {
-//     //     const country = new Country()
+//     //     const country = new CountryEntity()
 //     //     country.id = item.iso_3166_1
 //     //     country.name = item.english_name
 //     //     connection.manager.save(country)

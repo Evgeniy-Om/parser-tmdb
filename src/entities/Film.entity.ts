@@ -1,9 +1,9 @@
 import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm'
-import { Genre } from './Genre'
-import { Country } from './Country'
+import { GenreEntity } from './Genre.entity'
+import { CountryEntity } from './Country.entity'
 
 @Entity()
-export class Film {
+export class FilmEntity {
 
     @PrimaryColumn()
     id: number
@@ -38,13 +38,13 @@ export class Film {
     @Column()
     vote_count: number
 
-    @ManyToMany(() => Country, {nullable: true})
+    @ManyToMany(() => CountryEntity, {nullable: true})
     @JoinTable({name: 'films_countries'})
-    countries: Country[]
+    countries: CountryEntity[]
 
-    @ManyToMany(() => Genre, {nullable: true})
+    @ManyToMany(() => GenreEntity, {nullable: true})
     @JoinTable({name: 'films_genres'})
-    genres: Genre[]
+    genres: GenreEntity[]
 
     @Column({default: false})
     is_updated: boolean

@@ -1,11 +1,11 @@
-import { Film } from '../entity/Film'
+import { FilmEntity } from '../entities/Film.entity'
 import { CreateFilmDto } from '../dto/createFilm.dto'
 
 export function generateListFilmsForCreateInDb(listFilms: CreateFilmDto[]) {
 
-    const films: Film[] = []
+    const films: FilmEntity[] = []
     for (const film of listFilms) {
-        const newFilm = new Film()
+        const newFilm = new FilmEntity()
 
         newFilm.id = film.id
         newFilm.original_language = film.original_language
